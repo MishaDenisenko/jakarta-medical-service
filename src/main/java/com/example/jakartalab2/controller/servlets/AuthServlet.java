@@ -7,13 +7,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.example.jakartalab2.model.User.ROLE.UNKNOWN;
-import static java.util.Objects.nonNull;
 
 @WebServlet("/auth")
 public class AuthServlet extends HttpServlet {
@@ -41,7 +39,6 @@ public class AuthServlet extends HttpServlet {
             doRedirect(req, resp, user.getRole());
         }
         else doRedirect(req, resp, UNKNOWN);
-//        req.getRequestDispatcher("/WEB-INF/view/auth.jsp").forward(req, resp);
     }
 
     private void doRedirect(final HttpServletRequest req, final HttpServletResponse res, final User.ROLE role) throws ServletException, IOException {

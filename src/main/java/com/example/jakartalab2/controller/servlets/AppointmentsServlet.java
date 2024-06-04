@@ -1,8 +1,6 @@
 package com.example.jakartalab2.controller.servlets;
 
 import com.example.jakartalab2.controller.utils.DoPostWithRole;
-import com.example.jakartalab2.controller.utils.DoctorHelper;
-import com.example.jakartalab2.controller.utils.Helper;
 import com.example.jakartalab2.dao.UserDAO;
 import com.example.jakartalab2.model.Doctor;
 import com.example.jakartalab2.model.ReceiptTime;
@@ -18,7 +16,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.example.jakartalab2.controller.utils.DoPostWithRole.PAGE.APPOINTMENTS;
-import static com.example.jakartalab2.model.User.ROLE.USER;
 
 @WebServlet("/my-appointments")
 public class AppointmentsServlet extends HttpServlet {
@@ -46,22 +43,7 @@ public class AppointmentsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         dp.doPostWithRole(req, new Doctor());
-//        final int id = (int) req.getSession().getAttribute("id");
-//
-//        @SuppressWarnings("unchecked")
-//        final AtomicReference<UserDAO> dao = (AtomicReference<UserDAO>) req.getServletContext().getAttribute("userDAO");
-//        final User user = dao.get().getById(id);
-//
-//        String delParameter =  req.getParameter("Delete");
-//
-//        if (delParameter != null){
-//            final int timeId = Helper.getIdFromParam(delParameter);
-//            final ReceiptTime time = user.getTimeById(timeId);
-//
-//            time.setUser(null);
-//
-//            user.removeReceiptTime(time);
-//        }
+
         doGet(req, resp);
     }
 }
