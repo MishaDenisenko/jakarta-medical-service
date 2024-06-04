@@ -41,7 +41,7 @@
     <c:choose>
         <c:when test="${role == 'USER'}">
             <c:if test="${doctorTimes != null}">
-                <form method="post">
+                <form method="post" id="form">
                     <table class="table">
                         <thead>
                         <tr>
@@ -70,13 +70,19 @@
                                 <td>${time.status}</td>
                                 <td>
                                     <c:if test="${time.status == 'FREE'}">
-                                        <input class="btn btn-outline-success" type="submit" value="Add" name="Add">
-                                        <input type="hidden" value="${time.id}" name="timeId">
+                                        <input class="btn btn-outline-success"
+                                               type="button" value="Add"
+                                               name="Add"
+                                               onclick="submitForm('add', ${time.id})"
+                                        >
                                     </c:if>
                                     <c:if test="${time.status == 'BUSY'}">
                                         <c:if test="${time.user.login == login}">
-                                            <input class="btn btn-outline-danger" type="submit" value="Delete" name="Delete">
-                                            <input type="hidden" value="${time.id}" name="timeId">
+                                            <input class="btn btn-outline-danger"
+                                                   type="button" value="Delete"
+                                                   name="Delete"
+                                                   onclick="submitForm('delete', ${time.id})"
+                                            >
                                         </c:if>
                                     </c:if>
                                 </td>
@@ -84,6 +90,9 @@
                         </c:forEach>
                         </tbody>
                     </table>
+
+                    <input type="hidden" value="" datatype="timeId" name="timeId">
+                    <input type="hidden" value="" datatype="action" name="action">
                 </form>
             </c:if>
             <c:if test="${doctorTimes == null}">
@@ -92,7 +101,7 @@
         </c:when>
         <c:when test="${role == 'ADMIN'}">
             <c:if test="${doctorTimes != null}">
-                <form method="post">
+                <form method="post" id="form">
                     <table class="table" >
                         <thead>
                         <tr>
@@ -121,9 +130,16 @@
                                 </c:if>
                                 <td>${time.status}</td>
                                 <td>
-                                    <input class="btn btn-outline-primary" type="submit" value="Change" name="Change">
-                                    <input class="btn btn-outline-danger" type="submit" value="Delete" name="Delete">
-                                    <input type="hidden" value="${time.id}" name="timeId">
+                                    <input class="btn btn-outline-primary"
+                                           type="button" value="Change"
+                                           name="Change"
+                                           onclick="submitForm('change', ${time.id})"
+                                    >
+                                    <input class="btn btn-outline-danger"
+                                           type="button" value="Delete"
+                                           name="Delete"
+                                           onclick="submitForm('delete', ${time.id})"
+                                    >
                                 </td>
                             </tr>
                         </c:forEach>
@@ -137,16 +153,23 @@
                             <td></td>
                             <td></td>
                             <td>
-                                <input class="btn btn-outline-success" type="submit" value="Add" name="Add">
+                                <input class="btn btn-outline-success"
+                                       type="button" value="Add"
+                                       name="Add"
+                                       onclick="submitForm('add')"
+                                >
                             </td>
                         </tr>
                         </tbody>
                     </table>
+
+                    <input type="hidden" value="" datatype="timeId" name="timeId">
+                    <input type="hidden" value="" datatype="action" name="action">
                 </form>
 
             </c:if>
             <c:if test="${doctorTimes == null}">
-                <form method="post">
+                <form method="post" id="form">
                     <table class="table" >
                         <thead>
                         <tr>
@@ -168,16 +191,34 @@
                             <td></td>
                             <td></td>
                             <td>
-                                <input class="btn btn-outline-success" type="submit" value="Add" name="Add">
+                                <input class="btn btn-outline-success"
+                                       type="button" value="Add"
+                                       name="Add"
+                                       onclick="submitForm('add')"
+                                >
                             </td>
                         </tr>
                         </tbody>
                     </table>
+
+                    <input type="hidden" value="" datatype="timeId" name="timeId">
+                    <input type="hidden" value="" datatype="action" name="action">
                 </form>
             </c:if>
         </c:when>
     </c:choose>
 
 </div>
+
+<script>
+    function submitForm(action, id = null) {
+
+        document.querySelector('input[name="timeId"]').value = id;
+        document.querySelector('input[name="action"]').value = action;
+
+        document.querySelector('#form').submit();
+    }
+
+</script>
 </body>
 </html>

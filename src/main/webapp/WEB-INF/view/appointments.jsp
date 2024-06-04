@@ -43,7 +43,7 @@
         ${login} Appointments
     </h1>
     <c:if test="${userTimes != null}">
-        <form method="post">
+        <form method="post" id="form">
             <table class="table">
                 <thead>
                 <tr>
@@ -66,13 +66,19 @@
                             <td>-</td>
                         </c:if>
                         <td>
-                            <input class="btn btn-outline-danger" type="submit" value="Delete" name="Delete">
-                            <input type="hidden" value="${time.id}" name="timeId">
+                            <input class="btn btn-outline-danger"
+                                   type="button" value="Delete"
+                                   name="Delete"
+                                   onclick="submitForm('delete', ${time.id})"
+                            >
                         </td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
+
+            <input type="hidden" value="" datatype="timeId" name="timeId">
+            <input type="hidden" value="" datatype="action" name="action">
         </form>
     </c:if>
     <c:if test="${userTimes == null}">
@@ -80,6 +86,14 @@
     </c:if>
 </div>
 
+<script>
+    function submitForm(action, id = null) {
 
+        document.querySelector('input[name="timeId"]').value = id;
+        document.querySelector('input[name="action"]').value = action;
+
+        document.querySelector('#form').submit();
+    }
+</script>
 </body>
 </html>

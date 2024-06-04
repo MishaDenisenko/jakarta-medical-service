@@ -37,24 +37,28 @@ public class DoPostWithRole {
         final AtomicReference<UserDAO> dao = (AtomicReference<UserDAO>) req.getServletContext().getAttribute("userDAO");
         final User user = dao.get().getById(id);
 
-        String delParameter =  req.getParameter("Delete");
-        String addParameter =  req.getParameter("Add");
+        String action = req.getParameter("action");
 
-        if (delParameter != null){
-            final int timeId = Integer.parseInt(req.getParameter("timeId"));
-            final ReceiptTime time = user.getTimeById(timeId);
+        switch (action){
+            case "delete": {
+                final int timeId = Integer.parseInt(req.getParameter("timeId"));
+                final ReceiptTime time = user.getTimeById(timeId);
 
-            if (time.getUser() != null) time.getUser().removeReceiptTime(time);
+                if (time.getUser() != null) time.getUser().removeReceiptTime(time);
 
-            user.removeReceiptTime(time);
-        }
-        else if (addParameter != null){
-            final int timeId = Integer.parseInt(req.getParameter("timeId"));
-            final String hour = req.getParameter("hour");
-            final String minutes = req.getParameter("minutes");
+                user.removeReceiptTime(time);
+                break;
+            }
+            case "add": {
+                final int timeId = Integer.parseInt(req.getParameter("timeId"));
+                final String hour = req.getParameter("hour");
+                final String minutes = req.getParameter("minutes");
 
-            if (!hour.isEmpty() && !minutes.isEmpty()){
-                user.addReceiptTime(doctor.getTimeById(timeId));
+                if (!hour.isEmpty() && !minutes.isEmpty()){
+                    user.addReceiptTime(doctor.getTimeById(timeId));
+                }
+
+                break;
             }
         }
     }
@@ -65,9 +69,9 @@ public class DoPostWithRole {
         final AtomicReference<UserDAO> dao = (AtomicReference<UserDAO>) req.getServletContext().getAttribute("userDAO");
         final User user = dao.get().getById(id);
 
-        String delParameter =  req.getParameter("Delete");
+        String action = req.getParameter("action");
 
-        if (delParameter != null){
+        if (action.equals("delete")){
             final int timeId = Integer.parseInt(req.getParameter("timeId"));
             final ReceiptTime time = user.getTimeById(timeId);
 
@@ -77,39 +81,43 @@ public class DoPostWithRole {
         }
     }
     private void doPostAdmin(HttpServletRequest req, Doctor doctor){
-        String delParameter =  req.getParameter("Delete");
-        String changeParameter =  req.getParameter("Change");
-        String addParameter =  req.getParameter("Add");
+        String action = req.getParameter("action");
+        String timeId = req.getParameter("timeId");
 
-        if (delParameter != null){
-            final int id = Integer.parseInt(req.getParameter("timeId"));
-            final ReceiptTime time = doctor.getTimeById(id);
+        switch (action) {
+            case "delete": {
+                final int id = Integer.parseInt(timeId);
+                final ReceiptTime time = doctor.getTimeById(id);
 
-            if (time.getUser() != null) time.getUser().removeReceiptTime(time);
+                if (time.getUser() != null) time.getUser().removeReceiptTime(time);
 
-            time.setDoctor(null);
-            doctor.removeReceiptTime(time);
-        }
-        else if (addParameter != null){
-            final String hour = req.getParameter("hour");
-            final String minutes = req.getParameter("minutes");
-
-            if (!hour.isEmpty() && !minutes.isEmpty()){
-                doctor.addReceiptTime(
-                    new ReceiptTime(Helper.getUniqId(), Integer.parseInt(hour), Integer.parseInt(minutes), doctor)
-                );
+                time.setDoctor(null);
+                doctor.removeReceiptTime(time);
+                break;
             }
-        }
-        else if (changeParameter != null){
-            final int id = Integer.parseInt(req.getParameter("timeId"));
-            final ReceiptTime time = doctor.getTimeById(id);
+            case "add": {
+                final String hour = req.getParameter("hour");
+                final String minutes = req.getParameter("minutes");
 
-            final String hour = req.getParameter("hour_" + id);
-            final String minutes = req.getParameter("minutes_" + id);
+                if (!hour.isEmpty() && !minutes.isEmpty()) {
+                    doctor.addReceiptTime(
+                        new ReceiptTime(Helper.getUniqId(), Integer.parseInt(hour), Integer.parseInt(minutes), doctor)
+                    );
+                }
+                break;
+            }
+            case "change": {
+                final int id = Integer.parseInt(req.getParameter("timeId"));
+                final ReceiptTime time = doctor.getTimeById(id);
 
-            if (!hour.isEmpty() && !minutes.isEmpty()){
-                time.setHour(Integer.parseInt(hour));
-                time.setMinutes(Integer.parseInt(minutes));
+                final String hour = req.getParameter("hour_" + id);
+                final String minutes = req.getParameter("minutes_" + id);
+
+                if (!hour.isEmpty() && !minutes.isEmpty()) {
+                    time.setHour(Integer.parseInt(hour));
+                    time.setMinutes(Integer.parseInt(minutes));
+                }
+                break;
             }
         }
     }
