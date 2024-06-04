@@ -70,11 +70,13 @@
                                 <td>${time.status}</td>
                                 <td>
                                     <c:if test="${time.status == 'FREE'}">
-                                        <input class="btn btn-outline-success" type="submit" value="Add_${time.id}" name="Add">
+                                        <input class="btn btn-outline-success" type="submit" value="Add" name="Add">
+                                        <input type="hidden" value="${time.id}" name="timeId">
                                     </c:if>
                                     <c:if test="${time.status == 'BUSY'}">
                                         <c:if test="${time.user.login == login}">
-                                            <input class="btn btn-outline-danger" type="submit" value="Delete_${time.id}" name="Delete">
+                                            <input class="btn btn-outline-danger" type="submit" value="Delete" name="Delete">
+                                            <input type="hidden" value="${time.id}" name="timeId">
                                         </c:if>
                                     </c:if>
                                 </td>
@@ -119,8 +121,9 @@
                                 </c:if>
                                 <td>${time.status}</td>
                                 <td>
-                                    <input href="/doctor?timeId=${time.id}" class="btn btn-outline-primary" type="submit" value="Change_${time.id}" name="Change">
-                                    <input href="/doctor?timeId=${time.id}" class="btn btn-outline-danger" type="submit" value="Delete_${time.id}" name="Delete">
+                                    <input class="btn btn-outline-primary" type="submit" value="Change" name="Change">
+                                    <input class="btn btn-outline-danger" type="submit" value="Delete" name="Delete">
+                                    <input type="hidden" value="${time.id}" name="timeId">
                                 </td>
                             </tr>
                         </c:forEach>
