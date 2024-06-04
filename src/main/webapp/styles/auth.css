@@ -1,0 +1,22 @@
+.auth__container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.auth__form{
+    min-height: 500px;
+    min-width: 300px;
+
+    border-radius: 50px;
+}
+
+.auth__inputs{
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    margin-bottom: 50px;
+}
+
+

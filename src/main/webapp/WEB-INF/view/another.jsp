@@ -11,6 +11,12 @@
     <title>Title</title>
 </head>
 <body>
-  Another
+    <form method="post">
+        <h1>${doctor.name}</h1>
+        <button type="submit" name="delete">delete</button>
+        <button type="submit" name="change">change</button>
+        <input type="number"  placeholder="hour" name="hour"><br>
+        <input type="number"  placeholder="minutes" name="minutes"><br>
+    </form>
 </body>
 </html>

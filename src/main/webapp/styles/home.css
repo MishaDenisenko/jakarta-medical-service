@@ -1,0 +1,30 @@
+.home__container{
+    margin: 0 auto;
+    padding: 15px 20px;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 20px;
+}
+
+.home__text{
+    padding: 10px 15px;
+    text-align: justify;
+}
+
+.home__subtitle{
+    padding: 10px 15px;
+    margin-top: 15px;
+}
+
+.home__link{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100%;
+}
+
+.home__table-row{
+    border-bottom: 0;
+}

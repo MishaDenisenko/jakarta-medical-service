@@ -1,5 +1,7 @@
 package com.example.jakartalab2.controller.servlets;
 
+import com.example.jakartalab2.dao.UserDAO;
+import com.example.jakartalab2.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,6 +10,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
+
+import static com.example.jakartalab2.model.User.ROLE.UNKNOWN;
+import static java.util.Objects.nonNull;
 
 @WebServlet("/auth")
 public class AuthServlet extends HttpServlet {
@@ -18,6 +24,28 @@ public class AuthServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/view/auth.jsp").forward(req, resp);
+        final String login = req.getParameter("login");
+        final String password = req.getParameter("password");
+
+        @SuppressWarnings("unchecked")
+        final AtomicReference<UserDAO> dao = (AtomicReference<UserDAO>) req.getServletContext().getAttribute("userDAO");
+
+        if (dao.get().isUserExist(login, password)){
+            final User user = dao.get().getUserByLoginPassword(login, password);
+
+            req.getSession().setAttribute("id",  user.getId());
+            req.getSession().setAttribute("login", user.getLogin());
+            req.getSession().setAttribute("password", user.getPassword());
+            req.getSession().setAttribute("role", user.getRole());
+
+            doRedirect(req, resp, user.getRole());
+        }
+        else doRedirect(req, resp, UNKNOWN);
+//        req.getRequestDispatcher("/WEB-INF/view/auth.jsp").forward(req, resp);
+    }
+
+    private void doRedirect(final HttpServletRequest req, final HttpServletResponse res, final User.ROLE role) throws ServletException, IOException {
+        if (role == UNKNOWN) req.getRequestDispatcher("/WEB-INF/view/auth.jsp").forward(req, res);
+        else res.sendRedirect("/home");
     }
 }
