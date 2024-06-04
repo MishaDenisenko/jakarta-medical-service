@@ -41,7 +41,6 @@ public class AuthServlet extends HttpServlet {
             doRedirect(req, resp, user.getRole());
         }
         else doRedirect(req, resp, UNKNOWN);
-//        req.getRequestDispatcher("/WEB-INF/view/auth.jsp").forward(req, resp);
     }
 
     private void doRedirect(final HttpServletRequest req, final HttpServletResponse res, final User.ROLE role) throws ServletException, IOException {

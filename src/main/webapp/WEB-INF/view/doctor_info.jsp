@@ -121,8 +121,9 @@
                                 </c:if>
                                 <td>${time.status}</td>
                                 <td>
-                                    <input href="/doctor?timeId=${time.id}" class="btn btn-outline-primary" type="submit" value="Change_${time.id}" name="Change">
-                                    <input href="/doctor?timeId=${time.id}" class="btn btn-outline-danger" type="submit" value="Delete_${time.id}" name="Delete">
+                                    <input class="btn btn-outline-primary" type="submit" value="Change" name="Change">
+                                    <input class="btn btn-outline-danger" type="submit" value="Delete" name="Delete">
+                                    <input type="hidden" value="${time.id}" name="timeId">
                                 </td>
                             </tr>
                         </c:forEach>

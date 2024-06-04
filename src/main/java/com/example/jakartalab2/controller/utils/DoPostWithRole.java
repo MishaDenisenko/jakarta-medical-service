@@ -5,7 +5,6 @@ import com.example.jakartalab2.model.Doctor;
 import com.example.jakartalab2.model.ReceiptTime;
 import com.example.jakartalab2.model.User;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.concurrent.atomic.AtomicReference;
 

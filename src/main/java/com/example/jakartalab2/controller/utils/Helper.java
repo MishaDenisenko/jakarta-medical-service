@@ -18,11 +18,6 @@ public class Helper {
         return uniqId++;
     }
 
-    public static int getIdFromParam(String parameter){
-        String[] params = parameter.split("_");
-        return params.length > 0 ? Integer.parseInt(params[1]) : 0;
-    }
-
     public static List<User> createUsers(){
         List<User> users = new ArrayList<>();
 
