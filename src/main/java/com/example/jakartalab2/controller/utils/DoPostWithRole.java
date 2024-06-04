@@ -38,10 +38,9 @@ public class DoPostWithRole {
         final AtomicReference<UserDAO> dao = (AtomicReference<UserDAO>) req.getServletContext().getAttribute("userDAO");
         final User user = dao.get().getById(id);
 
-        String delParameter =  req.getParameter("Delete");
-        String addParameter =  req.getParameter("Add");
+        String action =  req.getParameter("action");
 
-        if (delParameter != null){
+        if (action.equals("delete")){
             final int timeId = Integer.parseInt(req.getParameter("timeId"));
             final ReceiptTime time = user.getTimeById(timeId);
 
@@ -49,7 +48,7 @@ public class DoPostWithRole {
 
             user.removeReceiptTime(time);
         }
-        else if (addParameter != null){
+        else if (action.equals("add")){
             final int timeId = Integer.parseInt(req.getParameter("timeId"));
             final String hour = req.getParameter("hour");
             final String minutes = req.getParameter("minutes");
@@ -66,9 +65,9 @@ public class DoPostWithRole {
         final AtomicReference<UserDAO> dao = (AtomicReference<UserDAO>) req.getServletContext().getAttribute("userDAO");
         final User user = dao.get().getById(id);
 
-        String delParameter =  req.getParameter("Delete");
+        String action =  req.getParameter("action");
 
-        if (delParameter != null){
+        if (action.equals("delete")){
             final int timeId = Integer.parseInt(req.getParameter("timeId"));
             final ReceiptTime time = user.getTimeById(timeId);
 
@@ -78,12 +77,11 @@ public class DoPostWithRole {
         }
     }
     private void doPostAdmin(HttpServletRequest req, Doctor doctor){
-        String delParameter =  req.getParameter("Delete");
-        String changeParameter =  req.getParameter("Change");
-        String addParameter =  req.getParameter("Add");
+        String action =  req.getParameter("action");
+        String timeId =  req.getParameter("timeId");
 
-        if (delParameter != null){
-            final int id = Integer.parseInt(req.getParameter("timeId"));
+        if (action.equals("delete")){
+            final int id = Integer.parseInt(timeId);
             final ReceiptTime time = doctor.getTimeById(id);
 
             if (time.getUser() != null) time.getUser().removeReceiptTime(time);
@@ -91,7 +89,7 @@ public class DoPostWithRole {
             time.setDoctor(null);
             doctor.removeReceiptTime(time);
         }
-        else if (addParameter != null){
+        else if (action.equals("add")){
             final String hour = req.getParameter("hour");
             final String minutes = req.getParameter("minutes");
 
@@ -101,8 +99,8 @@ public class DoPostWithRole {
                 );
             }
         }
-        else if (changeParameter != null){
-            final int id = Integer.parseInt(req.getParameter("timeId"));
+        else if (action.equals("change")){
+            final int id = Integer.parseInt(timeId);
             final ReceiptTime time = doctor.getTimeById(id);
 
             final String hour = req.getParameter("hour_" + id);
