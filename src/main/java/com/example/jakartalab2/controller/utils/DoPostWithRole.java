@@ -42,7 +42,7 @@ public class DoPostWithRole {
         String addParameter =  req.getParameter("Add");
 
         if (delParameter != null){
-            final int timeId = Helper.getIdFromParam(delParameter);
+            final int timeId = Integer.parseInt(req.getParameter("timeId"));
             final ReceiptTime time = user.getTimeById(timeId);
 
             if (time.getUser() != null) time.getUser().removeReceiptTime(time);
@@ -50,7 +50,7 @@ public class DoPostWithRole {
             user.removeReceiptTime(time);
         }
         else if (addParameter != null){
-            final int timeId = Helper.getIdFromParam(addParameter);
+            final int timeId = Integer.parseInt(req.getParameter("timeId"));
             final String hour = req.getParameter("hour");
             final String minutes = req.getParameter("minutes");
 
@@ -69,7 +69,7 @@ public class DoPostWithRole {
         String delParameter =  req.getParameter("Delete");
 
         if (delParameter != null){
-            final int timeId = Helper.getIdFromParam(delParameter);
+            final int timeId = Integer.parseInt(req.getParameter("timeId"));
             final ReceiptTime time = user.getTimeById(timeId);
 
             time.setUser(null);
@@ -83,7 +83,7 @@ public class DoPostWithRole {
         String addParameter =  req.getParameter("Add");
 
         if (delParameter != null){
-            final int id = Helper.getIdFromParam(delParameter);
+            final int id = Integer.parseInt(req.getParameter("timeId"));
             final ReceiptTime time = doctor.getTimeById(id);
 
             if (time.getUser() != null) time.getUser().removeReceiptTime(time);
@@ -102,7 +102,7 @@ public class DoPostWithRole {
             }
         }
         else if (changeParameter != null){
-            final int id = Helper.getIdFromParam(changeParameter);
+            final int id = Integer.parseInt(req.getParameter("timeId"));
             final ReceiptTime time = doctor.getTimeById(id);
 
             final String hour = req.getParameter("hour_" + id);
