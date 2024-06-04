@@ -6,8 +6,8 @@ import com.example.jakartalab2.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.jakartalab2.model.Doctor.PROFESSION.PROFESSION1;
-import static com.example.jakartalab2.model.Doctor.PROFESSION.PROFESSION2;
+import static com.example.jakartalab2.model.Doctor.PROFESSION.SURGEON;
+import static com.example.jakartalab2.model.Doctor.PROFESSION.DENTIST;
 import static com.example.jakartalab2.model.User.ROLE.ADMIN;
 import static com.example.jakartalab2.model.User.ROLE.USER;
 
@@ -31,8 +31,8 @@ public class Helper {
     public static List<Doctor> createDoctors(){
         List<Doctor> doctors = new ArrayList<>();
 
-        doctors.add(new Doctor(getUniqId(), "Dr. QWERTY", PROFESSION1));
-        doctors.add(new Doctor(getUniqId(), "Dr. WASD", PROFESSION2));
+        doctors.add(new Doctor(getUniqId(), "Dr. QWERTY", SURGEON));
+        doctors.add(new Doctor(getUniqId(), "Dr. WASD", DENTIST));
 
         return doctors;
     }

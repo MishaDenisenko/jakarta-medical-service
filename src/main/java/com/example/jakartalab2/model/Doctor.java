@@ -63,6 +63,6 @@ public class Doctor {
     }
 
     public enum PROFESSION {
-        PROFESSION1, PROFESSION2, UNKNOWN
+        SURGEON, DENTIST, UNKNOWN
     }
 }
