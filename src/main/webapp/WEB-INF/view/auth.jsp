@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <input class="btn btn-outline-primary" type="submit" value="Sign up">
+        <input class="btn btn-outline-primary" type="submit" value="Sign in">
     </form>
 </div>
 

@@ -1,6 +1,5 @@
 package com.example.jakartalab2.controller.ejb;
 
-import com.example.jakartalab2.controller.utils.Helper;
 import com.example.jakartalab2.model.Doctor;
 import com.example.jakartalab2.model.ReceiptTime;
 import com.example.jakartalab2.model.User;
