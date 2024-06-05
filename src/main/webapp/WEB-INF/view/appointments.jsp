@@ -40,7 +40,7 @@
 </header>
 <div class="appointment-container">
     <h1 class="title">
-        ${login} Appointments
+        Appointments
     </h1>
     <c:if test="${userTimes != null}">
         <form method="post" id="form">
@@ -50,6 +50,7 @@
                     <th style="border-bottom: 0;" scope="col">#</th>
                     <th style="border-bottom: 0;" scope="col">Date</th>
                     <th style="border-bottom: 0;" scope="col">Doctor</th>
+                    <th style="border-bottom: 0;" scope="col">Profession</th>
                     <th style="border-bottom: 0;" scope="col">Action</th>
                 </tr>
                 </thead>
@@ -61,8 +62,10 @@
                         <td>${time.hour}:${time.minutes}</td>
                         <c:if test="${time.doctor != null}">
                             <td>${time.doctor.name}</td>
+                            <td>${time.doctor.profession}</td>
                         </c:if>
                         <c:if test="${time.doctor == null}">
+                            <td>-</td>
                             <td>-</td>
                         </c:if>
                         <td>
